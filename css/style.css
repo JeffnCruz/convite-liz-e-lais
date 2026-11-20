@@ -1,0 +1,1151 @@
+/* ==========================================================================
+   CONVITE LIZ E LAÍS · 5 ANOS - ESTILOS
+   Cores: Rosa Bailarina, Creme e Dourado
+   ========================================================================== */
+
+:root {
+  /* Paleta Rosa */
+  --pink-light: #fff0f5;
+  --pink-soft: #ffe2eb;
+  --pink-accent: #ff85a9;
+  --pink-primary: #f05487;
+  --pink-deep: #c4295d;
+  --pink-curtain-1: #ffa6c1;
+  --pink-curtain-2: #f25586;
+  --pink-curtain-3: #d82b61;
+  --pink-curtain-dark: #a11440;
+
+  /* Paleta Creme / Marfim */
+  --cream-bg: #fffdf9;
+  --cream-card: #ffffff;
+  --cream-soft: #fcf6ef;
+  --cream-border: #f4e8dc;
+
+  /* Paleta Dourada */
+  --gold-light: #fff4d0;
+  --gold-primary: #d4af37;
+  --gold-accent: #f5cf68;
+  --gold-deep: #a67c1e;
+  --gold-glow: rgba(212, 175, 55, 0.45);
+
+  /* Texto e Sombras */
+  --text-primary: #4a2835;
+  --text-secondary: #7c4b5e;
+  --text-muted: #9f7586;
+  --shadow-stage: 0 18px 45px rgba(196, 41, 93, 0.22), 0 4px 14px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 10px 30px rgba(184, 114, 140, 0.14);
+
+  /* Transições e Dimensões */
+  --curtain-speed: 1s;
+  --radius-poster: 22px;
+  --radius-card: 20px;
+}
+
+/* Reset básico */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  background-color: #fdf5f7;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px 12px 36px;
+  background: 
+    radial-gradient(circle at 50% 0%, #ffeaf1 0%, #fef3f6 45%, #fce9ee 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Decoração sutil de fundo (estrelinhas e brilhos leves) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(212, 175, 55, 0.35), transparent),
+    radial-gradient(2px 2px at 90px 140px, rgba(240, 84, 135, 0.25), transparent),
+    radial-gradient(3px 3px at 85% 10%, rgba(212, 175, 55, 0.4), transparent),
+    radial-gradient(2px 2px at 70% 65%, rgba(240, 84, 135, 0.25), transparent),
+    radial-gradient(3px 3px at 15% 75%, rgba(212, 175, 55, 0.3), transparent);
+  background-repeat: repeat;
+  background-size: 260px 260px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Contêiner principal no desktop e mobile */
+.invitation-wrapper {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   PALCO DE BALÉ / POSTER COM CORTINAS
+   ========================================================================== */
+.stage-container {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-poster);
+  overflow: hidden;
+  box-shadow: var(--shadow-stage);
+  background: #fdf2f4;
+  /* Moldura dourada e rosa */
+  border: 4px solid var(--gold-accent);
+  outline: 2px solid rgba(240, 84, 135, 0.25);
+  outline-offset: -2px;
+}
+
+/* Camada da imagem do convite - Mantém estritamente a proporção 2:3 */
+.invitation-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: #ffdce6;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invitation-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain; /* Preserva a imagem inteira sem cortes ou distorções */
+  aspect-ratio: 2 / 3;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ==========================================================================
+   CORTINAS DO TEATRO
+   ========================================================================== */
+.curtains-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: auto;
+  display: block;
+  transition: visibility var(--curtain-speed) ease;
+}
+
+/* Bandeau / Valance decorativo no topo (lambrequim do teatro) */
+.stage-valance {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: 
+    radial-gradient(ellipse at 50% 0%, #ffb3cb 0%, #f05487 70%, #c4295d 100%);
+  border-bottom: 3px solid var(--gold-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.valance-drape {
+  width: 33.33%;
+  height: 100%;
+  background: radial-gradient(circle at 50% -20%, #ffa3be 20%, #e03f74 85%);
+  border-bottom-left-radius: 50% 24px;
+  border-bottom-right-radius: 50% 24px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  border-bottom: 2.5px solid var(--gold-accent);
+  position: relative;
+}
+
+.valance-drape::after {
+  content: "✨";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+
+/* Painéis das cortinas (esquerda e direita) */
+.curtains-split {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.curtain-panel {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  background-color: var(--pink-curtain-2);
+  /* Dobras elegantes de cetim/veludo com gradientes verticais */
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.22) 0px,
+      rgba(255, 255, 255, 0.35) 14px,
+      rgba(240, 84, 135, 0.15) 28px,
+      rgba(0, 0, 0, 0.18) 42px,
+      rgba(255, 255, 255, 0.25) 56px
+    ),
+    linear-gradient(
+      180deg,
+      #ff98b8 0%,
+      #f05487 40%,
+      #d42b63 85%,
+      #9b1843 100%
+    );
+  transition: transform var(--curtain-speed) cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform;
+}
+
+.curtain-panel-left {
+  transform-origin: left center;
+  box-shadow: inset -10px 0 16px rgba(0, 0, 0, 0.28);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.curtain-panel-right {
+  transform-origin: right center;
+  box-shadow: inset 10px 0 16px rgba(0, 0, 0, 0.28);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Franja dourada na barra inferior das cortinas */
+.curtain-panel::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      var(--gold-accent) 0px,
+      var(--gold-primary) 3px,
+      var(--gold-deep) 6px,
+      var(--gold-accent) 9px
+    );
+  border-top: 2px solid var(--gold-light);
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   CENTRO DO PALCO (CORAÇÃO DOURADO, TÍTULO E BOTÃO "ABRIR CONVITE")
+   ========================================================================== */
+.curtain-center-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 86%;
+  max-width: 320px;
+  padding: 24px 18px 20px;
+  background: rgba(255, 253, 249, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24px;
+  border: 2px solid var(--gold-accent);
+  box-shadow: 
+    0 12px 32px rgba(138, 20, 56, 0.35),
+    0 0 0 4px rgba(255, 255, 255, 0.65),
+    inset 0 0 16px rgba(245, 207, 104, 0.2);
+  transition: 
+    opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Pequeno coração dourado no centro */
+.golden-heart-container {
+  margin-bottom: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.golden-heart-icon {
+  width: 44px;
+  height: 44px;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(166, 124, 30, 0.45));
+  animation: heartPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Título na cortina: Liz e Laís · 5 anos */
+.stage-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.stage-subtitle {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+
+/* Botão "Abrir convite" */
+.btn-open-stage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f05487 0%, #db2763 60%, #b81b4f 100%);
+  color: #ffffff;
+  font-family: 'Quicksand', inherit, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 13px 26px;
+  min-height: 48px;
+  border-radius: 999px;
+  border: 2px solid var(--gold-light);
+  box-shadow: 
+    0 6px 18px rgba(219, 39, 99, 0.4),
+    0 0 15px var(--gold-glow);
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-open-stage::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: rotate(25deg) translateY(-100%);
+  animation: shineSwipe 3.5s infinite;
+}
+
+@keyframes shineSwipe {
+  0% { transform: rotate(25deg) translateY(-120%); }
+  35%, 100% { transform: rotate(25deg) translateY(120%); }
+}
+
+.btn-open-stage:hover,
+.btn-open-stage:focus-visible {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 8px 24px rgba(219, 39, 99, 0.5),
+    0 0 20px rgba(245, 207, 104, 0.6);
+  border-color: #ffffff;
+}
+
+.btn-open-stage:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-icon-ribbon {
+  font-size: 1.15rem;
+}
+
+/* ==========================================================================
+   ANIMAÇÃO DE ABERTURA DAS CORTINAS
+   ========================================================================== */
+.stage-container.is-opened .curtain-center-badge {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.85);
+  pointer-events: none;
+}
+
+.stage-container.is-opened .curtain-panel-left {
+  transform: translateX(-100%);
+}
+
+.stage-container.is-opened .curtain-panel-right {
+  transform: translateX(100%);
+}
+
+.stage-container.is-opened .stage-valance {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage-container.is-opened .curtains-stage {
+  pointer-events: none;
+}
+
+/* Botão para rever a abertura das cortinas */
+.replay-curtain-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px auto 2px;
+  background: #ffe4ed;
+  border: 1px solid rgba(240, 84, 135, 0.22);
+  color: #b81b4f;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(240, 84, 135, 0.12);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.replay-curtain-btn:hover,
+.replay-curtain-btn:focus-visible {
+  background: #ffd3e2;
+  color: #96123e;
+  border-color: rgba(240, 84, 135, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(240, 84, 135, 0.2);
+}
+
+.replay-curtain-btn:active {
+  transform: translateY(1px);
+}
+
+.stage-container.is-opened ~ .replay-curtain-btn {
+  display: inline-flex;
+}
+
+/* ==========================================================================
+   BRILHOS E CORAÇÕES NAS BORDAS (DURANTE A REVELAÇÃO)
+   Importante: Localizados apenas nas laterais/bordas para não encobrir nomes,
+   rostos ou informações da festa.
+   ========================================================================== */
+.edge-particles-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 12;
+}
+
+.edge-particle {
+  position: absolute;
+  font-size: 1.1rem;
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.35));
+}
+
+/* Animação acionada quando as cortinas abrem */
+.stage-container.is-opened .edge-particle {
+  animation: edgeParticleDrift 1.25s ease-out forwards;
+}
+
+@keyframes edgeParticleDrift {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translate(0, 0);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.15) translate(var(--dx, 0), var(--dy, -8px));
+  }
+  75% {
+    opacity: 0.85;
+    transform: scale(1) translate(calc(var(--dx, 0) * 1.5), calc(var(--dy, -8px) * 1.8));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translate(calc(var(--dx, 0) * 2), calc(var(--dy, -8px) * 2.5));
+  }
+}
+
+/* Posicionamento estrito nas margens laterais */
+.edge-particle.left-1 { top: 12%; left: 8px; --dx: -10px; --dy: -14px; animation-delay: 0.15s; }
+.edge-particle.left-2 { top: 32%; left: 10px; --dx: -8px; --dy: -12px; animation-delay: 0.35s; }
+.edge-particle.left-3 { top: 68%; left: 10px; --dx: -8px; --dy: -10px; animation-delay: 0.25s; }
+.edge-particle.left-4 { top: 86%; left: 8px; --dx: -12px; --dy: -15px; animation-delay: 0.45s; }
+
+.edge-particle.right-1 { top: 12%; right: 8px; --dx: 10px; --dy: -14px; animation-delay: 0.2s; }
+.edge-particle.right-2 { top: 32%; right: 10px; --dx: 8px; --dy: -12px; animation-delay: 0.4s; }
+.edge-particle.right-3 { top: 68%; right: 10px; --dx: 8px; --dy: -10px; animation-delay: 0.3s; }
+.edge-particle.right-4 { top: 86%; right: 8px; --dx: 12px; --dy: -15px; animation-delay: 0.5s; }
+
+/* ==========================================================================
+   DETALHES E AÇÕES (TEXTO SELECIONÁVEL ABAIXO DA ARTE)
+   ========================================================================== */
+.details-card {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  padding: 24px 20px;
+  box-shadow: 0 10px 32px rgba(220, 80, 130, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: none;
+  position: relative;
+  user-select: text;
+  -webkit-user-select: text;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.details-header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.details-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+}
+
+.details-title {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--pink-deep);
+  line-height: 1.25;
+  margin-bottom: 4px;
+  letter-spacing: -0.2px;
+}
+
+.details-badge-sub {
+  display: inline-block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  background: var(--gold-light);
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin-top: 4px;
+}
+
+/* Lista de informações da festa */
+.details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--cream-soft);
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(240, 84, 135, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease;
+  font-family: 'Nunito', sans-serif;
+}
+
+.detail-item:hover {
+  background: #fff4f8;
+  transform: translateX(2px);
+}
+
+.detail-icon-wrap {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  background: linear-gradient(135deg, #fff 0%, #ffeaf1 100%);
+  border: 1.5px solid var(--pink-soft);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 6px rgba(240, 84, 135, 0.12);
+}
+
+.detail-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.detail-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  letter-spacing: 0.6px;
+  margin-bottom: 2px;
+}
+
+.detail-value {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.detail-subvalue {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Bloco de Localização como link clicável para o Google Maps */
+.detail-item-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  user-select: none;
+}
+
+.detail-item-link:hover,
+.detail-item-link:focus-visible {
+  background: #fff0f5;
+  border-color: rgba(240, 84, 135, 0.35);
+  box-shadow: 0 4px 14px rgba(240, 84, 135, 0.12);
+  transform: translateY(-1px);
+}
+
+.detail-item-link:active {
+  transform: translateY(1px);
+}
+
+.detail-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.detail-link-hint {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--pink-primary);
+  background: rgba(240, 84, 135, 0.1);
+  padding: 1px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.detail-item-link:hover .detail-link-hint {
+  background: var(--pink-primary);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   BOTÕES DE AÇÃO ("LOCALIZAÇÃO", "CONFIRMAR PRESENÇA", "SUGESTÃO DE PRESENTE")
+   Organizados em duas linhas:
+   - Linha 1: Localização (largura total)
+   - Linha 2: Confirmar presença e Sugestão de presente (lado a lado / empilhado em telas estreitas)
+   Cores: Fundo rosa-claro (#ffe4ed), texto rosa-escuro (#b81b4f), cantos arredondados
+   ========================================================================== */
+.actions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.actions-row {
+  width: 100%;
+}
+
+.actions-row.is-hidden {
+  display: none !important;
+}
+
+.actions-row-split {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ffe4ed;
+  border: 1px solid rgba(240, 84, 135, 0.25);
+  color: #b81b4f;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.96rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  box-shadow: 0 3px 10px rgba(240, 84, 135, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  text-align: center;
+  user-select: none;
+}
+
+.action-btn:hover,
+.action-btn:focus-visible {
+  background: #ffd3e2;
+  color: #96123e;
+  border-color: rgba(240, 84, 135, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(240, 84, 135, 0.18);
+}
+
+.action-btn:active {
+  transform: translateY(1px);
+}
+
+/* Estado desabilitado (quando o WhatsApp não estiver configurado) */
+.action-btn.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.2);
+  box-shadow: none;
+}
+
+/* Linha 1: botão de largura total */
+.actions-row-full .action-btn {
+  width: 100%;
+  font-size: 1.02rem;
+  padding: 13px 20px;
+}
+
+/* Linha 2: botões divididos lado a lado */
+.actions-row-split .action-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 12px 8px;
+  font-size: 0.92rem;
+}
+
+.action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.btn-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Ocultação por classe */
+.action-btn.is-hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   TELA MODAL: SUGESTÃO DE PRESENTE
+   ========================================================================== */
+body.modal-open {
+  overflow: hidden;
+}
+
+.gift-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.gift-modal.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gift-modal[hidden] {
+  display: none !important;
+}
+
+.gift-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(56, 24, 38, 0.58);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.gift-modal-dialog {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px 20px 24px;
+  box-shadow: 0 16px 40px rgba(138, 20, 56, 0.28), 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 2px solid #ffe2eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform: scale(0.92) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.gift-modal.is-active .gift-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.gift-modal-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffe4ed 0%, #ffd3e2 100%);
+  border: 2px solid var(--gold-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #b81b4f;
+  box-shadow: 0 4px 12px rgba(240, 84, 135, 0.2);
+}
+
+.gift-badge-svg {
+  width: 26px;
+  height: 26px;
+}
+
+.gift-modal-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--pink-deep);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.gift-modal-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  margin-bottom: 20px;
+}
+
+.gift-items-list {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.gift-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff8fb;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(240, 84, 135, 0.16);
+  box-shadow: 0 2px 6px rgba(240, 84, 135, 0.05);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gift-item:hover {
+  background: #ffeef4;
+  transform: translateX(2px);
+}
+
+.gift-item-bullet {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.gift-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.gift-item-primary {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.gift-item-secondary {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--pink-primary);
+}
+
+.btn-voltar-convite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 24px;
+  background: #ffe4ed;
+  border: 1.5px solid rgba(240, 84, 135, 0.3);
+  border-radius: 999px;
+  color: #b81b4f;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(240, 84, 135, 0.15);
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.btn-voltar-convite:hover,
+.btn-voltar-convite:focus-visible {
+  background: #ffd0de;
+  color: #96123e;
+  border-color: rgba(240, 84, 135, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(240, 84, 135, 0.22);
+}
+
+.btn-voltar-convite:active {
+  transform: translateY(1px);
+}
+
+.btn-back-arrow {
+  font-size: 1.15rem;
+  font-weight: 800;
+  transition: transform 0.2s ease;
+}
+
+.btn-voltar-convite:hover .btn-back-arrow {
+  transform: translateX(-3px);
+}
+
+/* Rodapé carinhoso */
+.invitation-footer {
+  text-align: center;
+  padding: 8px 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-heart {
+  color: var(--pink-primary);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+/* ==========================================================================
+   ACELERAÇÃO E PROGRESSIVE ENHANCEMENT (NO-JS FALLBACK)
+   Se o JS estiver desativado ou falhar, o convite e as ações ficam 100% visíveis.
+   ========================================================================== */
+html.no-js .curtains-stage {
+  display: none !important;
+}
+
+html.no-js .stage-container {
+  overflow: visible;
+}
+
+/* ==========================================================================
+   ACESSIBILIDADE: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .curtain-panel-left,
+  .curtain-panel-right,
+  .curtains-stage {
+    transition: opacity 0.2s ease !important;
+  }
+
+  .stage-container.is-opened .curtain-panel-left,
+  .stage-container.is-opened .curtain-panel-right {
+    opacity: 0 !important;
+    transform: none !important;
+  }
+
+  .golden-heart-icon,
+  .btn-open-stage::after {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE: TELAS MENORES (320px e 390px)
+   ========================================================================== */
+@media (max-width: 375px) {
+  /* Em celulares estreitos, permite empilhar os botões da linha 2 se ficarem apertados */
+  .actions-row-split {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .actions-row-split .action-btn {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  body {
+    padding: 10px 8px 24px;
+  }
+
+  .curtain-center-badge {
+    width: 90%;
+    padding: 18px 12px 16px;
+  }
+
+  .stage-title {
+    font-size: 1.35rem;
+  }
+
+  .stage-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+
+  .btn-open-stage {
+    font-size: 0.95rem;
+    padding: 11px 20px;
+    min-height: 44px;
+  }
+
+  .details-card {
+    padding: 18px 14px;
+  }
+
+  .details-title {
+    font-size: 1.35rem;
+  }
+
+  .detail-item {
+    padding: 10px 12px;
+  }
+
+  .detail-value {
+    font-size: 0.98rem;
+  }
+
+  .gift-modal-dialog {
+    padding: 22px 16px 20px;
+  }
+
+  .gift-modal-title {
+    font-size: 1.35rem;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP (CENTRADO, APARÊNCIA DE PÔSTER VERTICAL ELEGANTE)
+   ========================================================================== */
+@media (min-width: 600px) {
+  body {
+    padding: 28px 20px 48px;
+    justify-content: center;
+  }
+
+  .invitation-wrapper {
+    max-width: 460px;
+  }
+
+  .stage-container {
+    border-width: 5px;
+  }
+}
