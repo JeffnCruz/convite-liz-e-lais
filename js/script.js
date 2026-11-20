@@ -28,9 +28,92 @@
   document.addEventListener('DOMContentLoaded', initConvite);
 
   function initConvite() {
-    setupCurtains();
+    const audioControl = setupAudio();
+    setupCurtains(audioControl);
     setupActions();
     setupGiftModal();
+  }
+
+  /**
+   * Configura o áudio delicado do convite e o botão de pausar/retomar
+   */
+  function setupAudio() {
+    const audio = document.getElementById('audio-convite');
+    const btnAudio = document.getElementById('btn-toggle-audio');
+
+    if (!audio) {
+      return {
+        play: function () {},
+        stop: function () {},
+        toggle: function () {}
+      };
+    }
+
+    // Define volume suave
+    audio.volume = 0.50;
+
+    function play() {
+      // Aciona no próprio clique do usuário para total compatibilidade no celular
+      const promise = audio.play();
+      if (promise !== undefined) {
+        promise.then(function () {
+          updateUI(true);
+        }).catch(function (err) {
+          console.warn("Reprodução de áudio prevenida pelo navegador:", err);
+          updateUI(false);
+        });
+      }
+    }
+
+    function stop() {
+      // Para a música e volta ao início da faixa
+      audio.pause();
+      audio.currentTime = 0;
+      updateUI(false);
+      if (btnAudio) {
+        btnAudio.classList.add('is-hidden');
+      }
+    }
+
+    function toggle() {
+      if (audio.paused) {
+        audio.play().then(function () {
+          updateUI(true);
+        }).catch(function (err) {
+          console.warn("Erro ao retomar áudio:", err);
+        });
+      } else {
+        audio.pause();
+        updateUI(false);
+      }
+    }
+
+    function updateUI(isPlaying) {
+      if (!btnAudio) return;
+      btnAudio.classList.remove('is-hidden');
+      if (isPlaying) {
+        btnAudio.classList.remove('is-paused');
+        btnAudio.classList.add('is-playing');
+        btnAudio.setAttribute('aria-pressed', 'true');
+        btnAudio.setAttribute('aria-label', 'Pausar música');
+        btnAudio.setAttribute('title', 'Pausar música');
+      } else {
+        btnAudio.classList.remove('is-playing');
+        btnAudio.classList.add('is-paused');
+        btnAudio.setAttribute('aria-pressed', 'false');
+        btnAudio.setAttribute('aria-label', 'Retomar música');
+        btnAudio.setAttribute('title', 'Retomar música');
+      }
+    }
+
+    if (btnAudio) {
+      btnAudio.addEventListener('click', function (e) {
+        e.preventDefault();
+        toggle();
+      });
+    }
+
+    return { play, stop, toggle };
   }
 
   /**
@@ -91,7 +174,7 @@
   /**
    * Configura o palco de teatro e a abertura das cortinas
    */
-  function setupCurtains() {
+  function setupCurtains(audioControl) {
     const stage = document.getElementById('stage-container');
     const btnOpen = document.getElementById('btn-open-curtain');
     const btnReplay = document.getElementById('btn-replay-curtain');
@@ -104,6 +187,11 @@
     function openCurtains() {
       if (isOpened) return;
       isOpened = true;
+
+      // Inicia a música junto com o primeiro movimento da cortina (acionado no clique)
+      if (audioControl) {
+        audioControl.play();
+      }
 
       // Animação de abertura (cortinas deslizam cerca de 1 segundo)
       stage.classList.add('is-opened');
@@ -123,6 +211,11 @@
     function closeCurtains() {
       if (!isOpened) return;
       isOpened = false;
+
+      // Para a música e volta ao início da faixa
+      if (audioControl) {
+        audioControl.stop();
+      }
 
       stage.classList.remove('is-opened');
       btnOpen.setAttribute('aria-expanded', 'false');
